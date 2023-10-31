@@ -1,0 +1,47 @@
+﻿@page "/login"
+
+@using DeliveryApp.Data;
+@using DataAccessLibrary.Data;
+@using DataAccessLibrary.Models;
+
+@inject IJSRuntime JSRuntime
+@inject IUsersData UserAccess
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+
+<h3>Login</h3>
+<hr/>
+
+<EditForm Model="sessionUser" OnValidSubmit="LoginUser">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <InputText id="email" @bind-Value="sessionUser.Email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Password:</label>
+        <InputText id="Password" @bind-Value="sessionUser.Password" class="form-control" type="password" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Login</button>
+</EditForm>
+
+@code {
+    public UserModel sessionUser = new UserModel();
+
+    private async Task LoginUser()
+    {
+        var user = await UserAccess.AuthenticateUser(sessionUser.Email, sessionUser.Password);
+
+        ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.Email);
+        NavigationManager.NavigateTo("/");
+
+        await sessionStorage.SetItemAsync("uid", user.Id);
+        await sessionStorage.SetItemAsync("email", user.Email);
+        await sessionStorage.SetItemAsync("admin", user.IsAdmin);
+    }
+}

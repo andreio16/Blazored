@@ -1,0 +1,75 @@
+﻿@page "/admin"
+@attribute [Authorize]
+
+@using DataAccessLibrary.Data;
+@using DataAccessLibrary.Models;
+
+@inject IOrdersData OrdersAccess
+
+<h3>Clients Orders </h3>
+<hr />
+
+@if (orders is null)
+{
+    <p><em>Loading...</em></p>
+}
+else @if (orders.Count == 0)
+{
+    <p><em>No orders so far... try buying something :)</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Items</th>
+                <th>Order accepted</th>
+                <th>Your package is packed & ready for delivery</th>
+                <th>Courier assigned succesfully</th>
+                <th>Courier picked up the package</th>
+                <th>Courier arrived</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in orders)
+            {
+                <tr>
+                    <th>@order.UserId</th>
+                    <th>@order.Id</th>
+                    <th>@order.OrderDate</th>
+                    <th>@order.TotalPrice</th>
+                    <th>@order.DeliveryNote</th>
+                    <th>
+                       <input type="checkbox" checked="@order.IsAccepted" />
+                    </th>
+                    <th>
+                        <input type="checkbox" checked="@order.IsPacked" />
+                    </th>
+                    <th>
+                        <input type="checkbox" checked="@order.IsCourierAssigned" />
+                    </th>
+                    <th>
+                        <input type="checkbox" checked="@order.IsPickedUp" />
+                    </th>
+                    <th>
+                        <input type="checkbox" checked="@order.ArrivedSuccessfully" />
+                    </th>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+@code {
+
+    private List<OrderModel>? orders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        orders = await OrdersAccess.GetAllOrders();
+    }
+}

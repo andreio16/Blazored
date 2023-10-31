@@ -1,0 +1,103 @@
+﻿@page "/products"
+@attribute [Authorize]
+
+@using DataAccessLibrary.Data;
+@using DataAccessLibrary.Models;
+@using DeliveryApp.Pages.Components;
+
+@inject IProductsData ProductsAccess
+@inject IOrdersData OrdersAccess
+
+<h3>Products Page</h3>
+<p><i>*The current available products on stock.*</i></p>
+
+@if(products is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="product-container">
+
+        @foreach (var product in products)
+        {
+            <ProductComponent CurrentProduct="product" RequestForBuying="RequestTransaction" />
+        }
+    </div>
+}
+
+<PurchaseConfirmationModal @ref="purchaseConfirm" AddProductToBasket="AddTransaction" />
+
+<h3>Your shopping basket:</h3>
+<hr/>
+@if(orderedBasket is not null)
+{
+    @for(int i=0; i<orderedBasket.Count; i++)
+    {
+        <p>#@(i+1) : @orderedBasket[@i]</p>
+    }
+    <p><b>Total: @totalPrice</b></p>
+    <button class="btn btn-primary" @onclick="InsertOrder">Confirm & Pay</button>
+}
+<hr/>
+
+@code {
+    private List<ProductModel>? products;
+    private PurchaseConfirmationModal purchaseConfirm;
+    private List<string> orderedBasket;
+    private double totalPrice;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await ProductsAccess.GetProducts();
+        orderedBasket = new List<string>();
+    }
+
+    private async Task RequestTransaction(ProductModel product)
+    {
+        purchaseConfirm.CurrentProduct = product;
+        purchaseConfirm.Show();
+    }
+
+    private async Task AddTransaction(double totalPricePerTransaction)
+    {
+        totalPrice += totalPricePerTransaction;
+        var valueTransaction = $"{purchaseConfirm.CurrentProduct.Name} ({purchaseConfirm.CurrentProduct.Price}) x {purchaseConfirm.CurrentQuantity}";
+
+        orderedBasket.Add(valueTransaction);
+        purchaseConfirm.Hide();
+    }
+
+    private async Task InsertOrder()
+    {
+        OrderModel o = new OrderModel
+            {
+                Id = 7,
+                DeliveryNote = GetDeliveryNote(),
+                OrderDate = DateTime.Now.Date.ToString("yyyy-MM-dd HH:mm:ss"),
+                TotalPrice = totalPrice,
+            };
+
+        await OrdersAccess.InsertOrder(o);
+        EmptyBasket();
+    }
+
+    private string GetDeliveryNote()
+    {
+        string result = "";
+
+        if (orderedBasket is null)
+            return result;
+
+        foreach (var elem in orderedBasket)
+            result += elem + "; ";
+
+        return result;
+    }
+
+    private void EmptyBasket()
+    {
+        orderedBasket = new List<string>();
+        totalPrice = 0;
+    }
+}

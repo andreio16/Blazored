@@ -1,0 +1,19 @@
+﻿@using DataAccessLibrary.Models
+
+<div class="product-box">
+    <h3>@CurrentProduct.Name</h3>
+    <p>@CurrentProduct.Description</p>
+    <p class="price">Price: @CurrentProduct.Price (@CurrentProduct.Currency)</p>
+
+    <button class="btn btn-primary" @onclick="(()=>RequestForBuying.InvokeAsync(CurrentProduct))">Buy</button>
+</div>
+
+@code {
+    [Parameter]
+    public ProductModel CurrentProduct { get; set; }
+
+    [Parameter]
+    public EventCallback<ProductModel> RequestForBuying { get; set; }
+
+
+}

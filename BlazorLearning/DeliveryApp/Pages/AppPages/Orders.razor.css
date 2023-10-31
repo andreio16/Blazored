@@ -1,0 +1,31 @@
+﻿.checkbox-container {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.checkbox-input {
+    display: none;
+}
+
+.checkbox-custom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #F0E68C; /* Yellow color */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.checkbox-input:checked + .checkbox-custom {
+    background-color: #568203; /* Green color */
+}
+
+.checkbox-label {
+    cursor: pointer;
+    user-select: none;
+}

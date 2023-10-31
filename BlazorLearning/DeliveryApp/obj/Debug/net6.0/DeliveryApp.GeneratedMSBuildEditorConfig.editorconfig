@@ -1,0 +1,77 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = DeliveryApp
+build_property.RootNamespace = DeliveryApp
+build_property.ProjectDir = C:\Users\aoa\source\repos\Blazor\BlazorLearning\DeliveryApp\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\aoa\source\repos\Blazor\BlazorLearning\DeliveryApp
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Pages/AppPages/Admin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBwUGFnZXNcQWRtaW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Pages/AppPages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBwUGFnZXNcTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Shared/PurchaseConfirmationModal.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFB1cmNoYXNlQ29uZmlybWF0aW9uTW9kYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Pages/AppPages/Orders.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBwUGFnZXNcT3JkZXJzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-uyg8g7wax7
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Pages/AppPages/Products.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBwUGFnZXNcUHJvZHVjdHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ze99ccqjj6
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Pages/Components/ProductComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xQcm9kdWN0Q29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-eqzrs77k41
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-hv5to0bd1r
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-x6ickgx6ci
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aoa/source/repos/Blazor/BlazorLearning/DeliveryApp/Pages/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

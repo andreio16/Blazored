@@ -1,0 +1,72 @@
+﻿@using DataAccessLibrary.Models;
+@if (showPopup)
+{
+    <div class="modal-backdrop show"></div>
+    <div class="modal fade show" style="display:block" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Purchase Confirmation</h5>
+                    <button type="button" @onclick="Hide" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+                </div>
+                <div class="modal-body">
+                    <p>You are buying @CurrentProduct.Name for @CurrentProduct.Price @CurrentProduct.Currency per unit.</p>
+                    <p role="status">
+                        Current quantity: @CurrentQuantity
+                        <button class="btn btn-primary oi oi-plus" @onclick="IncrementQuantity" />
+                        <button class="btn btn-primary oi oi-minus" @onclick="DecrementQuantity" />
+                        <br/>
+                        @if (CurrentQuantity >= 10)
+                        {
+                            <span>You cannot buy more then 10 products/delivery</span>
+                        }
+                    </p>
+                        <p role="status">Total price: @(CurrentProduct.Price * CurrentQuantity) (@CurrentProduct.Currency)</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" @onclick="Hide" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" @onclick="AddProduct" class="btn btn-success">Add to shopping basket</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code{
+    private bool showPopup = false;
+    public int CurrentQuantity { get; private set; } = 1;
+    public ProductModel CurrentProduct { get; set; }
+
+    [Parameter]
+    public EventCallback<double> AddProductToBasket { get; set; }
+
+    public void Show()
+    {
+        showPopup = true;
+        CurrentQuantity = 1;
+    }
+
+    public void Hide()
+    {
+        showPopup = false;
+        CurrentQuantity = 1;
+    } 
+
+    private void IncrementQuantity() 
+    {
+        if (CurrentQuantity >= 10) return;
+        CurrentQuantity += 1;
+    }
+
+    private void DecrementQuantity()
+    {
+        if (CurrentQuantity < 2) return;
+        CurrentQuantity -= 1;
+    }
+
+    private async Task AddProduct()
+    {
+        var totalPrice = CurrentProduct.Price * CurrentQuantity;
+        await AddProductToBasket.InvokeAsync(totalPrice);
+    }
+}

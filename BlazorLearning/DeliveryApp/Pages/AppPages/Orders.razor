@@ -1,0 +1,109 @@
+﻿@page "/orders"
+@attribute [Authorize]
+
+@using DataAccessLibrary.Data;
+@using DataAccessLibrary.Models;
+
+@inject IOrdersData OrdersAccess
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+
+<h3>Orders Page</h3>
+<hr />
+<p>
+    <b>*Color coding*</b>
+    <div class="checkbox-container">
+        <input type="checkbox" class="checkbox-input" checked="checked" />
+        <div class="checkbox-custom"></div>
+        <label class="checkbox-label" for="customCheckbox">Step Done</label>
+    </div>
+    <div class="checkbox-container">
+        <input type="checkbox" class="checkbox-input" />
+        <div class="checkbox-custom"></div>
+        <label class="checkbox-label" for="customCheckbox">Step in Preparation</label>
+    </div>
+</p>
+
+@if (orders is null)
+{
+    <p><em>Loading...</em></p>
+}
+else @if (orders.Count == 0)
+{
+    <p><em>No orders so far... try buying something :)</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Paid Sum</th>
+                <th>Items</th>
+                <th>Order accepted</th>
+                <th>Your package is packed & ready for delivery</th>
+                <th>Courier assigned succesfully</th>
+                <th>Courier picked up the package</th>
+                <th>Courier arrived</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in orders)
+            {
+                <tr>
+                    <th>@order.Id</th>
+                    <th>@order.OrderDate</th>
+                    <th>@order.TotalPrice</th>
+                    <th>@order.DeliveryNote</th>
+                    <th>
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="checkbox-input" checked="@order.IsAccepted" />
+                            <div class="checkbox-custom"></div>
+                        </div>
+
+                    </th>
+                    <th>
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="checkbox-input" checked="@order.IsPacked" />
+                            <div class="checkbox-custom"></div>
+                        </div>
+
+                    </th>
+                    <th>
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="checkbox-input" checked="@order.IsCourierAssigned" />
+                            <div class="checkbox-custom"></div>
+                        </div>
+
+                    </th>
+                    <th>
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="checkbox-input" checked="@order.IsPickedUp" />
+                            <div class="checkbox-custom"></div>
+                        </div>
+
+                    </th>
+                    <th>
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="checkbox-input" checked="@order.ArrivedSuccessfully" />
+                            <div class="checkbox-custom"></div>
+                        </div>
+
+                    </th>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+
+@code {
+    private List<OrderModel>? orders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        int id = await sessionStorage.GetItemAsync<int>("uid");
+        orders = await OrdersAccess.GetOrdersByUserId(id);
+    }
+}
