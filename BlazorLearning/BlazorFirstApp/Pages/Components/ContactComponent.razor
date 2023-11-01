@@ -1,0 +1,16 @@
+﻿<h4>Contact Component Details:</h4>
+
+<p>
+    @if(DisplayEmail)
+    {
+        <b>Email: </b><i>@Email</i>
+    }
+</p>
+
+@code {
+    [Parameter]
+    public string? Email { get; set; }
+
+    [Parameter]
+    public bool DisplayEmail { get; set; }
+}

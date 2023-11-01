@@ -44,25 +44,26 @@ else
                     <th>@order.TotalPrice</th>
                     <th>@order.DeliveryNote</th>
                     <th>
-                       <input type="checkbox" checked="@order.IsAccepted" />
+                        <input type="checkbox" @bind="@order.IsAccepted" @onclick="()=>OnCheckboxChanged(order, 1)" />
                     </th>
                     <th>
-                        <input type="checkbox" checked="@order.IsPacked" />
+                        <input type="checkbox" @bind="@order.IsPacked" @onclick="()=>OnCheckboxChanged(order, 2)" />
                     </th>
                     <th>
-                        <input type="checkbox" checked="@order.IsCourierAssigned" />
+                        <input type="checkbox" @bind="@order.IsCourierAssigned" @onclick="()=>OnCheckboxChanged(order, 3)" />
                     </th>
                     <th>
-                        <input type="checkbox" checked="@order.IsPickedUp" />
+                        <input type="checkbox" @bind="@order.IsPickedUp" @onclick="()=>OnCheckboxChanged(order, 4)" />
                     </th>
                     <th>
-                        <input type="checkbox" checked="@order.ArrivedSuccessfully" />
+                        <input type="checkbox" @bind="@order.ArrivedSuccessfully" @onclick="()=>OnCheckboxChanged(order, 5)" />
                     </th>
                 </tr>
             }
         </tbody>
-
     </table>
+
+    <p>*Don't worry, we are saving every modification you make*</p>
 }
 @code {
 
@@ -71,5 +72,19 @@ else
     protected override async Task OnInitializedAsync()
     {
         orders = await OrdersAccess.GetAllOrders();
+    }
+
+    private async Task OnCheckboxChanged(OrderModel order, int Stepflag)
+    {
+        switch (Stepflag)
+        {
+            case 1: order.IsAccepted = !order.IsAccepted; break;
+            case 2: order.IsPacked = !order.IsPacked; break;
+            case 3: order.IsCourierAssigned = !order.IsCourierAssigned; break;
+            case 4: order.IsPickedUp = !order.IsPickedUp; break;
+            case 5: order.ArrivedSuccessfully = !order.ArrivedSuccessfully; break;
+            default: break;
+        }
+        await OrdersAccess.UpdateOrder(order);
     }
 }

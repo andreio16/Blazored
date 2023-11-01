@@ -7,5 +7,6 @@ namespace DataAccessLibrary.Data
         Task<List<OrderModel>> GetAllOrders();
         Task<List<OrderModel>> GetOrdersByUserId(int Id);
         Task InsertOrder(OrderModel order);
+        Task UpdateOrder(OrderModel order);
     }
 }

@@ -130,6 +130,9 @@ rename column [new_column] to [passwordHash]
 EXEC sp_rename 'User.new_column', 'passwordHash', 'COLUMN';
 
 
+update [dbo].[User]
+set passwordHash = (Select passwordHash from [dbo].[User] where Id=7)
+Where Id=9
 
 
 

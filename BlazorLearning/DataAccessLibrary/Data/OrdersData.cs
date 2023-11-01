@@ -29,5 +29,13 @@ namespace DataAccessLibrary.Data
                          "VALUES (@UserId, @DeliveryNote, @TotalPrice, @OrderDate, @IsAccepted, @IsPacked, @IsCourierAssigned, @IsPickedUp, @ArrivedSuccessfully);";
             return _db.SaveData(sql, order);
         }
+
+        public Task UpdateOrder(OrderModel order)
+        {
+            string sql = "UPDATE [dbo].[Order]" +
+                         "SET isAccepted = @IsAccepted, isPacked = @IsPacked, isPickedUp = @IsPickedUp, isCourierAssigned = @IsCourierAssigned, arrivedsuccessfully = @ArrivedSuccessfully " +
+                         "WHERE Id = @Id";
+            return _db.SaveData(sql, order);
+        }
     }
 }
