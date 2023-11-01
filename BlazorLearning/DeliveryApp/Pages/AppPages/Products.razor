@@ -7,6 +7,7 @@
 
 @inject IProductsData ProductsAccess
 @inject IOrdersData OrdersAccess
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 
 <h3>Products Page</h3>
 <p><i>*The current available products on stock.*</i></p>
@@ -70,15 +71,17 @@ else
 
     private async Task InsertOrder()
     {
-        OrderModel o = new OrderModel
+        int id = await sessionStorage.GetItemAsync<int>("uid");
+
+        OrderModel order = new OrderModel
             {
-                Id = 7,
+                UserId = id,
                 DeliveryNote = GetDeliveryNote(),
                 OrderDate = DateTime.Now.Date.ToString("yyyy-MM-dd HH:mm:ss"),
                 TotalPrice = totalPrice,
             };
 
-        await OrdersAccess.InsertOrder(o);
+        await OrdersAccess.InsertOrder(order);
         EmptyBasket();
     }
 
